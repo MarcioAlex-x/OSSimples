@@ -1,0 +1,23 @@
+<h1 class="titulo titulo-principal">Produtos em estoque</h1>
+
+<div class="secao">
+    {{>menuPainel}}
+    <div class="artigo">
+
+        <a href="/produto/create" class="botao-add-flutuante">Novo produto</a>
+
+        <div class="lista">
+            {{#if semProdutos}}
+            <p>Nenhum produto para mostrar.</p>
+            {{/if}}
+            {{#each produtos}}
+                <div class="item-lista item-lista-clientes">
+                    <h2 class="fs-4">{{this.nome}}</h2>
+                    <p>Preço: R${{this.precoVenda}}</p>
+                    <p>Quantidade: {{this.quantidade}}</p>
+                    <span><a href="/produto/produto/{{this.id}}"><i class="bi bi-eye-fill icon-item-lista-produto"></i></a></span>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+</div>

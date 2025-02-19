@@ -1,0 +1,31 @@
+<h1 class="titulo titulo-principal">Cadastrar cliente</h1>
+
+<div class="secao">
+    {{> menuPainel}}
+    <div class="artigo">
+        <form class="form-container" action="addCliente" method="post">
+
+            <div class="input-container">
+                <label class="label">Nome</label>
+                <input class="input" type="text" name="nome">
+            </div>
+
+            <div class="input-container">
+                <label class="label">E-mail</label>
+                <input class="input" type="text" name="email">
+            </div>
+
+            <div class="input-container">
+                <label class="label">Telefone</label>
+                <input class="input" type="text" name="telefone">
+            </div>
+
+            <div class="input-container">
+                <label class="label">Endereço</label>
+                <input class="input" type="text" name="endereco">
+            </div>
+
+            <button type="submit" class="btn btn-primary ">Salvar</button>
+        </form>
+    </div>
+</div>

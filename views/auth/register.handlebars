@@ -1,0 +1,92 @@
+<h1 class="titulo titulo-principal">Registrar um utilizador</h1>
+
+<div class="">
+    <div class="row">
+        {{>menuPainel}}
+        <div class="col-8 col-9">
+            <form action="/auth/register" method="post" class="mb-5 form-container">
+                <input type="hidden" name="id" value="{{id}}">
+                <div class="input-container">
+                    <label class="label">Nome</label>
+                    <input class="input" type="text" placeholder="Informe o nome..." name="nome">
+                </div>
+
+                <div class="input-container">
+                    <label class="label">E-mail</label>
+                    <input class="input" type="text" placeholder="Informe o e-mail..." name="email">
+                </div>
+
+                <div class="input-container">
+                    <label class="label">Senha</label>
+                    <input class="input" type="password" placeholder="Informe uma senha..." name="password">
+                </div>
+                <div class="input-container">
+                    <label class="label">Telefone</label>
+                    <input class="input" type="text" placeholder="Informe o telefone..." name="telefone">
+                </div>
+                <div class="input-container">
+                    <label class="label">Endereço</label>
+                    <input class="input" type="text" placeholder="Informe o endereço..." name="endereco">
+                </div>
+
+                <div class="input-container">
+                    <label class="label">Especialidade</label>
+                    <input class="input" type="text" placeholder="Informe a especialidade..."
+                        name="especialidade">
+                </div>
+
+                <div class="input-container">
+                    <label class="label">Nível</label>
+                    <select class="input" name="nivel">
+                        <option value="">Escolha o nível de acesso</option>
+                        <option value="colaborador">Colaborador</option>
+                        <option value="administrador">Administrador</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-primary" type="submit">Salvar</button>
+            </form>
+        </div>
+    </div>
+</div>
+{{!-- <form action="/auth/register" method="post" class="mb-5 container">
+    <input type="hidden" name="id" value="{{id}}">
+    <div class="form-floating">
+        <input class="form-control" type="text" placeholder="Informe o nome..." name="nome">
+        <label for="floatingInput">Nome</label>
+    </div>
+    <div class="form-floating">
+        <input class="form-control" type="text" placeholder="Informe o e-mail..." name="email">
+        <label>E-mail</label>
+    </div>
+    <div class="form-floating">
+
+        <input class="form-control" type="password" placeholder="Informe uma senha..." name="password">
+        <label>Senha</label>
+    </div>
+    <div class="form-floating">
+
+        <input class="form-control" type="text" placeholder="Informe o telefone..." name="telefone">
+        <label>Telefone</label>
+    </div>
+    <div class="form-floating">
+
+        <input class="form-control" type="text" placeholder="Informe o endereço..." name="endereco">
+        <label>Endereço</label>
+    </div>
+    <div class="form-floating">
+
+        <input class="form-control" type="text" placeholder="Informe a especialidade..." name="especialidade">
+        <label>Especialidade</label>
+    </div>
+    <div class="form-floating">
+
+        <select class="form-control" name="nivel">
+            <option value="">Escolha o nível de acesso</option>
+            <option value="colaborador">Colaborador</option>
+            <option value="administrador">Administrador</option>
+        </select>
+        <label>Nível</label>
+    </div>
+    <button class="btn btn-primary" type="submit">Salvar</button>
+</form> --}}

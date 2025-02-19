@@ -1,0 +1,34 @@
+<h1 class="titulo titulo-principal">Técnicos cadastrados</h1>
+
+<a href="/auth/register" class="botao-add-flutuante">Novo técnico</a>
+<div class="secao">
+    {{> menuPainel}}
+    <div class="artigo">
+        {{#each tecnicos}}
+        <h2 class="text-center fs-4 my-3">{{this.nome}}</h2>
+        <div class="lista-tecnicos">
+            <div class="">
+                <p>E-mail:{{this.email}}</p>
+                <p>Telefone: {{this.telefone}}</p>
+                <p>Endereco: {{this.endereco}}</p>
+            </div>
+            <div class="">
+                <p>Especialidade: {{this.especialidade}}</p>
+                <p>Nivel ao sistema: {{this.nivel}}</p>
+                <p>Criado em {{this.createdAt}}</p>
+                <p>Última atualização em {{this.updatedAt}}</p>
+            </div>
+        </div>
+        <div class="botoes-lista-tecnicos">
+            <button class="btn btn-warning">
+                <a href="/auth/edit/{{this.id}}" class="text-dark text-decoration-none">Editar</a>
+            </button>
+            <form action="/auth/delete/{{this.id}}" method="post">
+                <button type="submit" class="btn btn-danger">Apagar</button>
+            </form>
+        </div>
+        <hr>
+        {{/each}}
+
+    </div>
+</div>

@@ -1,0 +1,26 @@
+<h1 class="titulo titulo-principal">Adicionar novo serviço</h1>
+
+<div class="secao">
+    {{>menuPainel}}
+    <div class="artigo">
+        <form action="/servico/addServico" method="post" class="form-container">
+
+            <div class="input-container">
+                <label class="label">Nome</label>
+                <input type="text" name="nome" class="input">
+            </div>
+
+            <div class="input-container">
+                <label class="label">Preço</label>
+                <input type="number" name="preco" class="input" step="0.01">
+            </div>
+
+            <div class="input-container">
+                <label class="label">Descrição</label>
+                <textarea name="descricao" class="input"></textarea>
+            </div>
+
+            <button class="btn btn-primary my-3" type="submit">Salvar</button>
+        </form>
+    </div>
+</div>

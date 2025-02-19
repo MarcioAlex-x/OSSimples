@@ -1,0 +1,34 @@
+<h1 class="titulo titulo-principal">Atualizar Cliente</h1>
+<p class="text-center mb-5">{{cliente.nome}}</p>
+
+<div class="secao">
+    {{> menuPainel}}
+
+    <div class="artigo">
+        <form class="form-container" action="/cliente/updateCliente" method="post">
+            <input type="hidden" name="id" value="{{cliente.id}}">
+            <div class="input-container">
+                <label class="label">Nome</label>
+                <input class="input" type="text" value="{{cliente.nome}}" name="nome">
+            </div>
+
+            <div class="input-container">
+                <label class="label">E-mail</label>
+                <input class="input" type="text" value="{{cliente.email}}" name="email">
+            </div>
+
+            <div class="input-container">
+                <label class="label">Telefone</label>
+                <input class="input" type="text" value="{{cliente.telefone}}" name="telefone">
+            </div>
+
+            <div class="input-container">
+                <label class="label">Endereço</label>
+                <input class="input" type="text" value="{{cliente.endereco}}" name="endereco">
+            </div>
+
+            <button type="submit" class="btn btn-primary ">Atualizar</button>
+        </form>
+    </div>
+
+</div>

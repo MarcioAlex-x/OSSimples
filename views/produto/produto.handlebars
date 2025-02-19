@@ -1,0 +1,27 @@
+<h1 class="titulo titulo-principal">Produto - {{produto.nome}}</h1>
+
+<div class="secao">
+    {{>menuPainel}}
+    <div class="artigo">
+        <h2>Nome: {{produto.nome}}</h2>
+        <p>Criado em: {{dataCriacao}}, por {{produto.usuario}}.</p>
+        <p>Preço de compra: R${{precoCompra}}</p>
+        <p>Preço de venda: R${{precoVenda}}</p>
+        <p>Quntidade em estoque: {{produto.quantidade}}</p>
+        {{#if adm}}
+        <div class="botoes-lista-tecnicos">
+            <button class="btn btn-warning">
+                <a href="/produto/atualizar/{{produto.id}}">Editar</a>
+            </button>
+            <form action="/produto/delete" method="post">
+                <input type="hidden" name="id" value="{{produto.id}}">
+                <button type="submit" class="btn btn-danger">
+                    Apagar
+                </button>
+            </form>
+        </div>
+        {{else}}
+            <p style="font-size: 18px; color: rgb(246, 113, 113)">Apenas administradores terão acesso aos botões de controle de estoque.</p>
+        {{/if}}
+    </div>
+</div>

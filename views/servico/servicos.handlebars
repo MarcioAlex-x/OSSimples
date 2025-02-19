@@ -1,0 +1,31 @@
+<h1 class="titulo titulo-principal">Serviços</h1>
+
+<div class="">
+    <div class="secao">
+        {{>menuPainel}}
+        <div class="artigo">
+
+            <a href="/servico/create" class="botao-add-flutuante">Novo serviço</a>
+
+            <div class="lista">
+                {{#each servicos}}
+                <div class="item-lista">
+                    <h2 class="fs-4">{{this.nome}}</h2>
+                    <hr>
+                    <p class="fw-bold">R${{this.precoFormatado}}</p>
+                    <hr>
+                    <p class="fw-bold">Descrição: <br> <span class="fw-normal">{{this.descricao}}</span></p>
+                    <div class="container-botoes-item-lista">
+                            <button class="btn btn-sm btn-warning me-2">
+                                <a href="/servico/edit/{{this.id}}" class="text-dark text-decoration-none">Editar</a>
+                            </button>
+                                <form action="/servico/delete/{{this.id}}" method="post">
+                                    <button type="submit" class="btn btn-sm btn-danger">Apagar</button>
+                                </form>
+                        </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>

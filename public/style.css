@@ -1,0 +1,294 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.logo-header{
+    width: 60px;
+    margin-top: 16px;
+    margin-left: 16px;
+}
+
+body{
+    background-color: #2d3436;
+    color: #dfe6e9;
+}
+:root{
+    --titulo:"Roboto", serif;
+    --textos:"Montserrat", serif;
+}
+
+.titulo{
+    font-family: var(--titulo);
+}
+
+.titulo-principal{
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+/* Formulários */
+.form-container{
+    border: 1px solid #dfe6e9;
+    border-radius: 8px;
+    margin: 0 auto;
+    padding: 32px;
+}
+
+.input-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.login-register{
+    width: 75%;
+}
+
+.label{
+    font-family: var(--textos);
+}
+
+.input{
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #dfe6e9;
+    outline: transparent;
+    caret-color: #dfe6e9;
+    margin-bottom: 24px;
+    color: #dfe6e9;
+}
+
+.option{
+    background-color: #2d3436;
+}
+
+/* menu do painel */
+.menu-painel{
+    background-color: #2d3436;
+    padding-block: 16px;
+    display: flex;
+    justify-content: center;
+}
+
+.menu-painel a{
+    color: #dfe6e9;
+    border-radius: 4px;
+    display: flex;
+    text-decoration: none;
+    font-size: 18px;
+    margin-left: 16px;
+    padding-block: 8px;
+    transition: .3s;
+    align-items: center;
+}
+
+.menu-painel a:hover{
+    transform: scale(1.1);
+}
+
+.bi{
+    margin-right: 8px;
+}
+
+.btn{
+    display: block;
+}
+
+/* seções */
+.secao{
+    display: grid;
+    grid-template-columns: 200px auto;
+    margin-right: 4px;
+}
+
+.lista{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    flex-wrap: wrap;
+    padding: 4px;
+    gap: 8px;
+}
+.item-lista{
+    border: 1px solid #dfe6e9;
+    padding: 8px;
+    border-radius: 8px;
+    position: relative;
+    height: 300px;
+}
+/*  */
+.container-botoes-item-lista{
+    display: flex;
+    position: absolute;
+    bottom: 8px;
+}
+.item-lista-clientes{
+    height: 150px;
+}
+
+.contato-item-lista-clientes{
+    display: flex;
+    justify-content: space-between;
+}
+
+.icon-item-lista-cliente{
+    color: #dfe6e9;
+    font-size: 24px;
+}
+
+.icon-item-lista-produto{
+    color: #dfe6e9;
+    font-size: 24px;
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+}
+
+/* formulario da busca dos clientes */
+
+.form-seach-cliente{
+    display: flex;
+    width: 100%;
+    align-items: start;
+    gap: 16px;
+    width: 70%;
+    margin: 0 auto;
+}
+
+.input-search-cliente{
+    width: 100%;
+}
+
+.artigo{    
+    border-left: 1px solid #dfe6e9;
+    padding-inline: 16px ;
+    overflow-y: auto;
+    scrollbar-width: none;
+    height: 75vh;
+}
+
+.artigo-cliente{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.botoes-cliente{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-top: 16px;
+}
+
+.botoes-cliente a, .botoes-cliente button{
+    color: #dfe6e9;
+    font-weight: bold;
+}
+
+.lista-tecnicos{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.botoes-lista-tecnicos{
+    display: flex;
+}
+
+.botoes-lista-tecnicos button{
+    margin-left: 8px;
+}
+
+.botao-add-flutuante{
+    position: absolute;
+    right: 16px;
+    top: 100px;
+    color: #dfe6e9;
+    text-decoration: none;
+    border: #dfe6e9 2px solid;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: .5s;
+    font-weight: bold;
+}
+
+.botao-add-flutuante:hover{
+    background-color: #dfe6e9;
+    color: #2d3436;
+}
+
+.message{
+    text-align: center;
+    border: 1px solid #dfe6e9;
+    border-radius: 8px;
+    margin: auto;
+    background-color: #dfe6e9;
+    color: #2d3436;
+    position: absolute;
+    bottom:50% ;
+    left: 25%;
+    font-size: 18px;
+    padding: 16px;
+    width: 50%;
+    /* margin: 80px auto; */
+}
+
+.botoes-status-ordens{
+    display: flex;
+}
+
+.select-status-ordens{
+    display: flex;
+    color: #dfe6e9;
+    align-items: start;
+}
+
+.select-status-ordens button{
+    color: #dfe6e9;
+    font-size: 18px;
+}
+
+footer{
+    margin: 16px 0;
+    padding-top: 16px;
+    text-align: center;
+    border-top: 1px solid #dfe6e9;
+}
+
+@media screen and (max-width : 450px){
+    .secao{
+        grid-template-columns: 80px auto;
+    }
+    .link-menu-painel-span{
+        display: none;
+        margin: 0 auto;
+    }
+    .lista{
+        grid-template-columns: 1fr;
+    }
+    .select-status-ordens{
+        flex-direction: column;
+    }
+    .select-status-ordens button{
+        margin-top: 0;
+    }
+    .botao-add-flutuante{
+        top: 20px;
+    }
+    .form-container{
+        padding: 8px;
+    }
+    .select{
+        border-radius: 8px;
+    }
+    .option{
+        text-wrap: wrap;
+    }
+
+    .lista-tecnicos{
+        grid-template-columns: 1fr;
+    }
+}
+@media screen and (max-width: 415px){
+    .botoes-status-ordens{
+        display: none;
+    }
+}

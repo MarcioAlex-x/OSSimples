@@ -1,0 +1,72 @@
+<h1 class="titulo titulo-principal">Criar nova ordem de serviço</h1>
+
+<div class="secao">
+    {{>menuPainel}}
+    <div class="artigo">
+        <form action="/ordem/newOrdem" method="POST" class="form-container">
+
+            <div class="input-container">
+                <label class="label" for="cliente">Cliente:</label>
+                <select class="input" name="ClienteId" required>
+                    <option class="option" value="">Escolha um cliente...</option>
+                    {{#each clientes}}
+                    <option class="option" value="{{this.id}}">{{this.nome}}</option>
+                    {{/each}}
+                </select>
+            </div>
+
+            <div class="input-container">
+                <label class="label" for="tecnico">Técnico:</label>
+                <select class="input" name="UserId" required>
+                    <option class="option" value="">Escolha um tecnico...</option>
+                    {{#each tecnicos}}
+                    <option class="option" value="{{this.id}}">{{this.nome}}</option>
+                    {{/each}}
+                </select>
+            </div>
+
+            <div class="input-container">
+                <label class="label">Data de entrada</label>
+                <input type="date" name="dataentrada" class="input">
+            </div>
+            <div class="input-container">
+                <label class="label">Prazo para entrega</label>
+                <input type="date" name="prazoentrega" class="input">
+            </div>
+
+            <div class="input-container">
+                <label class="label" for="servicos">Serviços:</label>
+                <select class="input" name="servicos" multiple required>
+                    {{#each servicos}}
+                    <option class="option" value="{{this.id}}" data-preco="{{this.preco}}">
+                        {{this.nome}} - R$ {{this.preco}}
+                    </option>
+                    {{/each}}
+                </select>
+                <span class="text-success">Use o CTRL para escolher mais de um serviço.</span>
+            </div>
+
+            <div class="input-container">
+                <label class="label">Checklist</label>
+                <textarea name="checklist" class="input"></textarea>
+            </div>
+
+            <div class="input-container">
+                <label class="label" for="desconto">Desconto (R$):</label>
+                <input class="input" type="number" name="desconto" step="0.01" min="0">
+            </div>
+
+            <div class="input-container">
+                <label class="label" for="formapagamento">Forma de Pagamento:</label>
+                <select class="input" name="formapagamento">
+                    <option class="option" value="dinheiro">Dinheiro</option>
+                    <option class="option" value="cartao">Cartão</option>
+                    <option class="option" value="pix">Pix</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Criar Ordem</button>
+        </form>
+
+    </div>
+</div>

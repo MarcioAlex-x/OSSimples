@@ -1,0 +1,28 @@
+<h1 class="titulo titulo-principal">Editar {{servico.nome}}</h1>
+
+<div class="">
+    <div class="secao">
+        {{>menuPainel}}
+        <div class="artigo">
+            <form action="/servico/updateServico" method="post" class="form-container">
+                <input type="hidden" name="id" value="{{servico.id}}">
+                <div class="input-container">
+                    <label class="label">Nome</label>
+                    <input type="text" name="nome" value="{{servico.nome}}" class="input">
+                </div>
+
+                <div class="input-container">
+                    <label class="label">Preço</label>
+                    <input type="number" name="preco" value="{{servico.preco}}" class="input" step="0.01">
+                </div>
+
+                <div class="input-container">
+                    <label class="label">Descrição</label>
+                    <textarea name="descricao" class="input">{{servico.descricao}}</textarea>
+                </div>
+
+                <button class="btn btn-primary my-3" type="submit">Atualizar</button>
+            </form>
+        </div>
+    </div>
+</div>

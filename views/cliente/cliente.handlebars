@@ -1,0 +1,32 @@
+<h1 class="titulo titulo-principal">{{cliente.nome}}</h1>
+
+<div class="secao">
+    {{>menuPainel}}
+    <div class="artigo">
+            <div class="artigo-cliente">
+                <div class="">
+                    <h2 class="fs-4 mb-3">Dados pesssoais</h2>
+                    <p>Email: {{cliente.email}}</p>
+                    <p>Contato: {{cliente.telefone}}</p>
+                    <p>Endereço: {{cliente.endereco}}</p>
+                </div>
+                <div class="">
+                    <h2 class="fs-4 mb-3">Dados do sistema</h2>
+                    <p>Data da criação: {{dataCriacaoFormatada}}</p>
+                    <p>Ultima atualização: {{dataAtualizacaoForamatada}}</p>
+                </div>
+            </div>
+            
+            <div class="botoes-cliente">
+                <a href="/cliente/atualizar/{{cliente.id}}" class="text-decoration-none btn">
+                    <p class="">Atualizar <i class="bi bi-pencil-square text-success"></i></p>
+                </a>
+                <a href="" class="text-decoration-none">
+                    <form action="/cliente/deleteCliente" method="post">
+                        <input type="hidden" name="id" value="{{cliente.id}}">
+                        <button class="btn" type="submit">Apagar <i class="bi bi-trash-fill text-warning"></i></button>
+                    </form>
+                </a>
+            </div>
+    </div>
+</div>

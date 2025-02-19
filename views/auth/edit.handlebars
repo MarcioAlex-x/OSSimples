@@ -1,0 +1,46 @@
+<h1 class="titulo titulo-principal">Atualizar {{user.nome}}</h1>
+    <div class="secao">
+        {{>menuPainel}}
+
+        <div class="artigo">
+            <form action="/auth/edit" method="post" class="form-container">
+                <div class="input-container">
+                    <input type="hidden" name="id" value="{{user.id}}">
+                    <label>Nome</label>
+                    <input class="input" type="text" placeholder="Informe o nome..." name="nome"
+                        value="{{user.nome}}">
+                </div>
+                <div class="input-container">
+                    <label>E-mail</label>
+                    <input class="input" type="text" placeholder="Informe o e-mail..." name="email"
+                        value="{{user.email}}">
+                </div>
+                {{!-- dado escondido --}}
+                <input class="input" type="hidden" name="password" value="{{user.password}}">
+                <div class="input-container">
+                    <label>Telefone</label>
+                    <input class="input" type="text" placeholder="Informe o telefone..." name="telefone"
+                        value="{{user.telefone}}">
+                </div>
+                <div class="input-container">
+                    <label>Endereço</label>
+                    <input class="input" type="text" placeholder="Informe o endereço..." name="endereco"
+                        value="{{user.endereco}}">
+                </div>
+                <div class="input-container">
+                    <label>Especialidade</label>
+                    <input class="input" type="text" placeholder="Informe a especialidade..."
+                        name="especialidade" value="{{user.especialidade}}">
+                </div>
+                <div class="input-container">
+                    <label>Nível</label>
+                    <select name="nivel" class="input">
+                        <option value="{{user.nivel}}">{{user.nivel}}</option>
+                        <option value="colaborador">Colaborador</option>
+                        <option value="administrador">Administrador</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary mt-3" type="submit">Salvar</button>
+            </form>
+        </div>
+    </div>

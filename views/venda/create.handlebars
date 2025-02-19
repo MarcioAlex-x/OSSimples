@@ -1,0 +1,67 @@
+<h1 class="titulo titulo-principal">Registrar Nova Venda</h1>
+
+<div class="secao">
+    {{>menuPainel}}
+    <div class="artigo">
+        <form action="/venda/add" method="post" class="form-container">
+
+            <div class="input-container">
+                <label for="comprador" class="label">Comprador</label>
+                <input type="text" id="comprador" name="comprador" class="input" required>
+            </div>
+
+            <div class="input-container">
+                <label for="formapagamento" class="label">Forma de Pagamento</label>
+                <select id="formapagamento" name="formapagamento" class="input select">
+                    <option class="option" value="Dinheiro">Dinheiro</option>
+                    <option class="option" value="Cartão de Crédito">Cartão de Crédito</option>
+                    <option class="option" value="Cartão de Débito">Cartão de Débito</option>
+                    <option class="option" value="Pix">Pix</option>
+                </select>
+            </div>
+
+            <div class="input-container">
+                <label for="vendedor" class="form-label">Vendedor</label>
+                <select name="vendedor" id="vendedor" class="input" required>
+                    <option class="option" value="">Informe o vendedor</option>
+                    {{#each vendedores}}
+                        <option class="option" value="{{this.nome}}">{{this.nome}}</option>
+                    {{/each}}
+                </select>
+                <input type="text" id="vendedor" name="vendedor" class="input" required>
+            </div>
+
+            <h3>Produtos</h3>
+            <div id="produtos-container">
+                <div class="input-container">
+                    <label>Produto</label>
+                    <select name="produtos[]" class="input">
+                        {{#each produtos}}
+                            <option class="option" value="{{this.id}}">{{this.nome}}</option>
+                        {{/each}}
+                    </select>
+
+                    <label>Quantidade</label>
+                    <input type="number" name="quantidades[]" class="input" required min="1">
+                </div>
+            </div>
+
+            <button type="button" id="addProduto" class="btn btn-secondary my-2">Adicionar Produto</button>
+
+            <button class="btn btn-primary my-3" type="submit">Finalizar Venda</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.getElementById('addProduto').addEventListener('click', function() {
+        const container = document.getElementById('produtos-container');
+        const novoProduto = container.firstElementChild.cloneNode(true);
+        
+        // Resetando os valores dos novos campos
+        novoProduto.querySelector("select").value = "";
+        novoProduto.querySelector("input").value = "";
+        
+        container.appendChild(novoProduto);
+    });
+</script>
