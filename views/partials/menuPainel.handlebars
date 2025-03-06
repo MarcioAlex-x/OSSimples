@@ -1,9 +1,11 @@
 <div class="menu-painel">
+    
     <div>
-        <a href="/venda/create" class="link-menu-painel">
+        <img src="/images/SIMPLES.png" alt="">
+        {{!-- <a href="/venda/create" class="link-menu-painel">
             <i class="bi bi-currency-dollar link-menu-painel-icone"></i>
             <span class="link-menu-painel-span">Vender</span>
-        </a>
+        </a> --}}
         
         <a href="/ordem/ordens" class="link-menu-painel">
             <i class="bi bi-file-earmark-medical link-menu-painel-icone"></i>
@@ -22,21 +24,34 @@
             <i class="bi bi-person-vcard link-menu-painel-icone"></i>
             <span class="link-menu-painel-span">Técnicos</span>
         </a>
-        <a href="/produto/produtos" class="link-menu-painel">
+        {{!-- <a href="/produto/produtos" class="link-menu-painel">
             <i class="bi bi-door-open link-menu-painel-icone"></i>
             <span class="link-menu-painel-span">Estoque</span>
-        </a>
-        <a href="" class="link-menu-painel">
+        </a> --}}
+        {{!-- <a href="" class="link-menu-painel">
             <i class="bi bi-wallet2 link-menu-painel-icone"></i>
             <span class="link-menu-painel-span">Caixa</span>
-        </a>
-        <a href="" class="link-menu-painel">
-            <i class="bi bi-bar-chart-line link-menu-painel-icone"></i>
+        </a> --}}
+        <a href="/relatorios/relatorios" class="link-menu-painel">
+            <i class="bi bi-activity"></i>
             <span class="link-menu-painel-span">Relatórios</span>
         </a>
+        {{#if temOrdensAtrasada}}
+        <a href="/dashboard/painel" class="link-menu-paine">
+            <i class="bi bi-bar-chart-line link-menu-painel-icone"></i>
+            <span class="link-menu-painel-span ordens-atrasadas">
+                Painel
+            </span>
+        </a>
+        {{else}}
         <a href="/dashboard/painel" class="link-menu-painel">
             <i class="bi bi-bar-chart-line link-menu-painel-icone"></i>
             <span class="link-menu-painel-span">Painel</span>
+        </a>
+        {{/if}}
+        <a href="/infos/create" class="link-menu-painel">
+           <i class="bi bi-info-square"></i>
+            <span class="link-menu-painel-span">Informações</span>
         </a>
         <form class="mt-2" action="/auth/logout" method="post">
             <button type="submit" class="btn btn-sm btn-outline-danger w-100 d-flex align-items-center justify-content-center fw-bold">

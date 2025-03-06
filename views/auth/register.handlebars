@@ -1,10 +1,10 @@
 <h1 class="titulo titulo-principal">Registrar um utilizador</h1>
 
-<div class="">
-    <div class="row">
+
+    <div class="secao">
         {{>menuPainel}}
-        <div class="col-8 col-9">
-            <form action="/auth/register" method="post" class="mb-5 form-container">
+        <div class="artigo">
+            <form action="/auth/register" method="post" class="form-container">
                 <input type="hidden" name="id" value="{{id}}">
                 <div class="input-container">
                     <label class="label">Nome</label>
@@ -48,7 +48,6 @@
             </form>
         </div>
     </div>
-</div>
 {{!-- <form action="/auth/register" method="post" class="mb-5 container">
     <input type="hidden" name="id" value="{{id}}">
     <div class="form-floating">

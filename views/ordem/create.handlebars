@@ -38,7 +38,7 @@
                 <label class="label" for="servicos">Serviços:</label>
                 <select class="input" name="servicos" multiple required>
                     {{#each servicos}}
-                    <option class="option" value="{{this.id}}" data-preco="{{this.preco}}">
+                    <option class="" value="{{this.id}}" data-preco="{{this.preco}}">
                         {{this.nome}} - R$ {{this.preco}}
                     </option>
                     {{/each}}
@@ -59,13 +59,13 @@
             <div class="input-container">
                 <label class="label" for="formapagamento">Forma de Pagamento:</label>
                 <select class="input" name="formapagamento">
-                    <option class="option" value="dinheiro">Dinheiro</option>
-                    <option class="option" value="cartao">Cartão</option>
-                    <option class="option" value="pix">Pix</option>
+                    <option class="" value="dinheiro">Dinheiro</option>
+                    <option class="" value="cartao">Cartão</option>
+                    <option class="" value="pix">Pix</option>
                 </select>
             </div>
 
-            <button type="submit" class="btn btn-primary">Criar Ordem</button>
+            <button type="submit" class="btn btn-primary send-msg">Criar Ordem</button>
         </form>
 
     </div>

@@ -1,10 +1,136 @@
 <h1 class="titulo titulo-principal">Painel</h1>
 
-   
 
-    <div class="secao">
-            {{> menuPainel}}
-        <div class="artigo">
-            dados
+
+<div class="secao">
+    {{> menuPainel}}
+    <div class="artigo">
+        {{#if alertaOrdensAtrasadas}}
+        <li class="alerta ordens-atrasadas">{{ordemDataEntregaAtrazada}} ordem atrasada</li>
+        {{/if}}
+        <div class="date-painel">
+            <form action="/dashboard/painel" method="get" class="date-painel">
+                <input type="date" name="inicioDatePainel" id="">
+
+                <input type="date" name="finalDatePainel" id="">
+
+                <input type="submit" value="Filtrar" class="btn btn-primary btn-sm">
+            </form>
+        </div>
+
+        <div class="cards ">
+
+            <div class="qtd-ordens card" data-aos="flip-right" data-aos-duration="2000">
+                {{#if temOrdem}}
+                <p>Até o momento foram registradas
+                    <br>
+                    <span> {{qtdOrdens}} ordens de serviços</span>
+                </p>
+                {{else}}
+                <p>Até o momento não foi registrada nenhuma ordem de serviços</p>
+                {{/if}}
+            </div>
+
+            <div class="card  ordens-abertas" data-aos="flip-right" data-aos-duration="2000">
+                {{#if ordensAbertasMult}}
+                <p>No momento exitem
+                    <br>
+                    <span>{{ordensAbertas}} ordens em aberto</span>
+                </p>
+                {{else}}
+                <p>No momento exite
+                    <br>
+                    <span>{{ordensAbertas}} ordem em aberto</span>
+                </p>
+                {{/if}}
+            </div>
+
+            {{#if ordensConcluidasMult}}
+            <div class="card  ordens-concluidas" data-aos="flip-right" data-aos-duration="2000">
+                <p>Até aqui foram concluídas
+                    <br>
+                    <span>{{ordensConcluidas}} ordens de serviço</span>
+                </p>
+            </div>
+            {{else}}
+            <div class="card  ordens-concluidas" data-aos="flip-right" data-aos-duration="2000">
+                <p>Até aqui foi concluída
+                    <br>
+                    <span>{{ordensConcluidas}} ordem de serviço</span>
+                </p>
+            </div>
+            {{/if}}
+
+
+            <div class="card  ordens-entregues" data-aos="flip-right" data-aos-duration="2000">
+                {{#if ordensEntreguesMult}}
+                <p>Até o momento foram entregues
+                    <br>
+                    <span>{{ordensEntregues}} ordens de serviço</span>
+                </p>
+                {{else}}
+                <p>Até o momento foi entregue
+                    <br>
+                    <span>{{ordensEntregues}} ordem de serviço</span>
+                </p>
+                {{/if}}
+            </div>
+
+            <div class="card  qtd-clientes" data-aos="flip-right" data-aos-duration="2000">
+                {{#if temClientes}}
+                <p>Existem
+                    <br>
+                    <span>{{qtdClientes}} clientes registrados</span>
+                </p>
+                {{else}}
+                <p>Existe
+                    <br>
+                    <span>{{qtdClientes}} cliente registrado</span>
+                </p>
+                {{/if}}
+            </div>
+
+            <div class="card  qtd-tecnicos" data-aos="flip-right" data-aos-duration="2000">
+                {{#if temTecnicos}}
+                <p>Existem
+                    <br>
+                    <span>{{qtdTecnicos}} tecnicos registrados</span>
+                </p>
+                {{else}}
+                <p>Existe
+                    <br>
+                    <span>{{qtdTecnicos}} tecnico registrado</span>
+                </p>
+                {{/if}}
+            </div>
+
+            <div class="card  qtd-administrador" data-aos="flip-right" data-aos-duration="2000">
+                {{#if temAdministradores}}
+                <p>O sistema possui
+                    <br>
+                    <span>{{qtdAdministrador}} administradores registrados</span>
+                </p>
+                {{else}}
+                <p>O sistema possui
+                    <br>
+                    <span>{{qtdAdministrador}} administrador registrado</span>
+                </p>
+                {{/if}}
+            </div>
+
+            <div class="card  qtd-colaborador" data-aos="flip-right" data-aos-duration="2000">
+                {{#if temColaboradores}}
+                <p>O sistema possui
+                    <br>
+                    <span>{{qtdColaboradores}} colaboradores registrados</span>
+                </p>
+                {{else}}
+                <p>O sistema possui
+                    <br>
+                    <span>{{qtdColaboradores}} colaborador registrado</span>
+                </p>
+                {{/if}}
+            </div>
         </div>
     </div>
+</div>

@@ -1,0 +1,42 @@
+<h1 class="titulo titulo-principal">Relatórios</h1>
+
+<div class="secao">
+    {{> menuPainel}}
+    <div class="artigo">
+        <div class="graficos">
+            {{!-- <div>
+                <h5 class="titulo">Quantidade de Ordens de Serviço</h5>
+                <canvas id="qtdOrdens"></canvas>
+            </div> --}}
+            <div>
+                <h5 class="titulo">Últimos 7 dias</h5>
+                <canvas id="ordensSeteDias"></canvas>
+            </div>
+            <div>
+                <h5 class="titulo">Último mês</h5>
+                <canvas id="ordensUmMes"></canvas>
+            </div>
+            <div>
+                <h5 class="titulo">Últimos 6 meses</h5>
+                <canvas id="ordensSeisMeses"></canvas>
+            </div>
+            <div>
+                <h5 class="titulo">Último ano</h5>
+                <canvas id="ordensUmAno"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var qtdOrdensAbertas = {{ qtdOrdensAbertas }};
+        var qtdOrdensConcluidas = {{ qtdOrdensConcluidas }};
+        var qtdOrdensEntregues = {{ qtdOrdensEntregues }};
+        var seteDias = {{{ seteDias }}};
+        var umMes = {{{ umMes }}};
+        var seisMeses = {{{ seisMeses }}};
+        var umAno = {{{ umAno }}};
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/graficos.js"></script>
+
+</div>

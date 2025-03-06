@@ -1,0 +1,42 @@
+<h1 class="titulo titulo-principal">Crie as informações da Assitência</h1>
+
+<div class="secao">
+    {{> menuPainel}}
+    <div class="artigo">
+        <form action="addInfos" class="form-container" method="post">
+            <div class="input-container">
+                <label class="label">Nome da Assistencia</label>
+                <input class="input" type="text" name="assistencia">
+            </div>
+            <div class="input-container">
+                <label class="label">Endereço completo</label>
+                <input class="input" type="text" name="endereco" placeholder="nome da rua, número, bairro, cidade-estado">
+            </div>
+            <div class="input-container">
+                <label class="label">Complemento</label>
+                <input class="input" type="text" name="complemento">
+            </div>
+            <div class="input-container">
+                <label class="label">E-mail</label>
+                <input class="input" type="text" name="email">
+            </div>
+            <div class="input-container">
+                <label class="label">WhatsApp</label>
+                <input class="input" type="text" name="whatsapp" placeholder="Ex: +5515987654321">
+            </div>
+            <div class="input-container">
+                <label class="label">Técnico responsável</label>
+                <input class="input" type="text" name="responsavel">
+            </div>
+            <div class="input-container">
+                <label class="label">E-mail para envio das OSs</label>
+                <input class="input" type="text" name="emailEnvioOss">
+            </div>
+            <div class="input-container">
+                <label class="label">Senha do e-mail de envio das OSs</label>
+                <input class="input" type="password" name="senhaEmailEnvioOss">
+            </div>
+            <input type="submit" value="Salvar" class="btn btn-primary btn-sm">
+        </form>
+    </div>
+</div>

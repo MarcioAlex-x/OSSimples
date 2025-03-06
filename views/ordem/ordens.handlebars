@@ -9,18 +9,18 @@
             ordem</a>
         <div class="botoes-status-ordens">
             <form method="get" action="/ordem/ordens">
-                <button type="submit" class="btn btn-sm btn-secondary mx-2">Todas</button>
+                <button type="submit" class="bt btn-sm bt-secondary mx-2">Todas</button>
             </form>
             <form method="get">
                 <button type="submit" name="byStatus" value="aberto"
-                    class="btn btn-sm btn-warning me-2">Abertas</button>
+                    class="bt btn-sm bt-tertiary me-2">Abertas</button>
             </form>
             <form method="get">
                 <button type="submit" name="byStatus" value="concluido"
-                    class="btn btn-sm btn-success me-2">Concluidas</button>
+                    class="bt btn-sm bt-quarter me-2">Concluidas</button>
             </form>
             <form method="get">
-                <button type="submit" name="byStatus" value="entregue" class="btn btn-sm btn-primary">Entregues</button>
+                <button type="submit" name="byStatus" value="entregue" class="bt btn-sm bt-primary">Entregues</button>
             </form>
         </div>
         {{#each ordens}}

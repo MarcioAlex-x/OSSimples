@@ -31,7 +31,7 @@ module.exports = class TecnicoController {
       }))
 
       let administrador = req.session.user ? req.session.user.nivel === 'administrador' : false
-      
+
       res.render("tecnico/tecnicos", { tecnicos, administrador });
     } catch (err) {
       req.flash('message','')

@@ -1,6 +1,7 @@
 window.onload = function () {
   const messageElement = document.querySelector(".message");
   const statusOrdemElements = document.querySelectorAll(".status-ordem");
+  const ordens = require('../models/Ordem')
 
   if (messageElement) {
     setTimeout(function () {
@@ -22,5 +23,6 @@ window.onload = function () {
       statusOrdem.innerHTML = "Entregue";
       statusOrdem.style.color = "#0D6EFD";
     }
-  });
+  }); 
+
 };

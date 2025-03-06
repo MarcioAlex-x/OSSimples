@@ -1,4 +1,5 @@
 const Servico = require("../models/Servico");
+
 module.exports = class ServicoController {
   static async showAll(req, res) {
     const servicoData = await Servico.findAll({
@@ -8,10 +9,12 @@ module.exports = class ServicoController {
       ...serv,
       precoFormatado: parseFloat(serv.preco).toFixed(2).replace(".", ","),
     }));
+
     res.render("servico/servicos", { servicos });
   }
 
   static createServico(req, res) {
+    
     res.render("servico/create");
   }
 

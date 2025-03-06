@@ -12,28 +12,26 @@ module.exports = class AuthController {
     const nome = req.body.nome.trim().toUpperCase();
     const password = req.body.password;
 
-    let message = false
-    let contentMessage = ''
-    let classe = ''
+    let message = false;
+    let contentMessage = "";
+    let classe = "";
 
     try {
       const user = await User.findOne({ where: { nome } });
       if (!user) {
-       
-        return res.render("auth/login",{  
-          message : true,
-          contentMessage : 'Usuário não encontrado.',
-          classe: 'erro'
-         });
+        return res.render("auth/login", {
+          message: true,
+          contentMessage: "Usuário não encontrado.",
+          classe: "erro",
+        });
       }
       const decodesPassword = await bcrypt.compare(password, user.password);
 
       if (!decodesPassword) {
-        
-        return res.render("auth/login",{ 
-          message : true,
-          contentMessage : 'Senha inválida' ,
-          classe: 'erro'
+        return res.render("auth/login", {
+          message: true,
+          contentMessage: "Senha inválida",
+          classe: "erro",
         });
       }
 
@@ -49,41 +47,37 @@ module.exports = class AuthController {
         res.redirect("/dashboard/painel");
       });
     } catch (err) {
-      req.flash(
-        "message",
-        ""
-      );
+      req.flash("message", "");
       console.log(err);
-      return res.status(500).render("auth/login",{ 
-        message:true, 
-        contentMessage:'Ocorreu um erro inesperado, favor tentar denovo mais tarde.',
-        classe: 'erro'
-       });
+      return res.status(500).render("auth/login", {
+        message: true,
+        contentMessage:
+          "Ocorreu um erro inesperado, favor tentar denovo mais tarde.",
+        classe: "erro",
+      });
     }
   }
 
   // metodos para register
-  static register(req, res) {
+  static async register(req, res) {
     return res.render("auth/register");
   }
 
   // novo usuário
   static async registerPost(req, res) {
-
-    let message = false
-    let contentMessage = ''
-    let classe = ''
+    let message = false;
+    let contentMessage = "";
+    let classe = "";
 
     const { nome, email, password, telefone, endereco, especialidade, nivel } =
       req.body;
     const newUser = async () => {
       // Validação decampos
       if (!nome || !email || !password || !telefone || !endereco) {
-
-        return res.status(400).render("auth/register",{
+        return res.status(400).render("auth/register", {
           message: true,
           contentMessage: "Todos os dados precisam ser informados.",
-          classe:'erro'
+          classe: "erro",
         });
       }
 
@@ -94,18 +88,18 @@ module.exports = class AuthController {
       const existingName = await User.findOne({ where: { nome } });
 
       if (existingEmail) {
-        return res.status(400).render("auth/register",{
+        return res.status(400).render("auth/register", {
           message: true,
           contentMessage: "O email informado já está sendo usado.",
-          classe:'erro'
+          classe: "erro",
         });
       }
 
       if (existingName) {
-        return res.status(400).render("auth/register",{
+        return res.status(400).render("auth/register", {
           message: true,
-          contentMessage: 'O nome de usuário informado já está sendo usado.',
-          classe:'erro'
+          contentMessage: "O nome de usuário informado já está sendo usado.",
+          classe: "erro",
         });
       }
 
@@ -124,10 +118,11 @@ module.exports = class AuthController {
           res.redirect("/dashboard/painel");
         });
       } catch (err) {
-        return res.render("auth/register",{
+        return res.render("auth/register", {
           message: true,
-          contentMessage: "Aconteceu um erro inesperado, por favor tentar novamente.",
-          classe: 'erro'
+          contentMessage:
+            "Aconteceu um erro inesperado, por favor tentar novamente.",
+          classe: "erro",
         });
       }
     };
@@ -142,31 +137,30 @@ module.exports = class AuthController {
 
   // página para editar um usuário
   static async userEdit(req, res) {
-
-    let message = false
-    let contentMessage = ''
-    let classe = ''
+    let message = false;
+    let contentMessage = "";
+    let classe = "";
 
     const id = req.params.id;
     const user = await User.findOne({ where: { id } });
     // console.log("nome", user.nome);
     if (!user) {
-      return res.render("auth/edit",{
+      return res.render("auth/edit", {
         message: true,
         contentMessage: "Usuário não encontrado.",
-        classe: 'erro'
+        classe: "erro",
       });
     }
+
     const userData = user.get({ plain: true });
     return res.render("auth/edit", { user: userData });
   }
 
   // editar um usuário
   static async userEditPost(req, res) {
-
-    let message = false
-    let contentMessage = ''
-    let classe = ''
+    let message = false;
+    let contentMessage = "";
+    let classe = "";
 
     const id = req.body.id;
     const { nome, email, password, telefone, endereco, especialidade, nivel } =
@@ -175,10 +169,10 @@ module.exports = class AuthController {
     const user = await User.findOne({ where: { id } });
 
     if (!user) {
-      return res.render("auth/edit",{
-        message : true,
-        contentMessage : 'Usuário não encontrado.',
-        classe: 'erro'
+      return res.render("auth/edit", {
+        message: true,
+        contentMessage: "Usuário não encontrado.",
+        classe: "erro",
       });
     }
 
@@ -197,10 +191,10 @@ module.exports = class AuthController {
         res.redirect("/");
       });
     } catch (err) {
-      
-      return res.status(500).render("auth/edit",{
-        message:true,
-        contentMessage:'Ocorreu um erro inesperado, por favor tente outra vez.'
+      return res.status(500).render("auth/edit", {
+        message: true,
+        contentMessage:
+          "Ocorreu um erro inesperado, por favor tente outra vez.",
       });
     }
   }

@@ -6,10 +6,9 @@ const User = require("../models/User");
 module.exports = class ClienteController {
   // mostrar todos os clientes
   static async showAll(req, res) {
-
     let message = false;
-    let contentMessage = ''
-    let classe = ''
+    let contentMessage = "";
+    let classe = "";
 
     let order = "DESC";
     let search = "";
@@ -22,7 +21,6 @@ module.exports = class ClienteController {
       let clientesVazio = false;
 
       const clientes = await Cliente.findAll({
-        raw: true,
         where: {
           nome: { [Op.like]: `%${search}%` },
         },
@@ -48,6 +46,8 @@ module.exports = class ClienteController {
         };
       });
 
+      // console.log(clientesComOrdem)
+
       res.render("cliente/clientes", {
         clientes: clientesComOrdem,
         clientesVazio,
@@ -65,19 +65,17 @@ module.exports = class ClienteController {
 
   // adicionar um novo cliente
   static async addCliente(req, res) {
-    
-    let message = false
-    let contentMessage = ''
-    let classe = ''
+    let message = false;
+    let contentMessage = "";
+    let classe = "";
 
     const { nome, email, telefone, endereco } = req.body;
 
     if (!nome || !email || !telefone || !endereco) {
-      
-      return res.render("/cliente/create",{
-        message:true,
-        contentMessage:'Todos os campos precisam ser preenchidos.',
-        classe:'erro'
+      return res.render("/cliente/create", {
+        message: true,
+        contentMessage: "Todos os campos precisam ser preenchidos.",
+        classe: "erro",
       });
     }
 
@@ -92,10 +90,10 @@ module.exports = class ClienteController {
       await Cliente.create(newCliente);
       return res.redirect("/cliente/clientes");
     } catch (err) {
-      return res.render("/cliente/create",{
-        message:true,
-        contentMessage:'Algo deu errado, tente outra vez em instantes.',
-        classe:'erro'
+      return res.render("/cliente/create", {
+        message: true,
+        contentMessage: "Algo deu errado, tente outra vez em instantes.",
+        classe: "erro",
       });
     }
   }
@@ -150,6 +148,7 @@ module.exports = class ClienteController {
         where: { id },
         raw: true,
       });
+
       if (!cliente) {
         req.flash("message", "Usuário não encontrado.");
         return res.render("cliente/cliente");

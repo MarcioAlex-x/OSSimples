@@ -3,6 +3,10 @@ const exphbs = require("express-handlebars");
 const session = require("express-session");
 const FileStore = require("session-file-store")(session);
 const flash = require("express-flash");
+const fs = require('fs')
+const path = require('path')
+require('dotenv').config()
+
 
 // modulos internos
 const conn = require(`./db/conn`);
@@ -18,6 +22,7 @@ const VendaProduto = require('./models/VendaProduto')
 const Produto = require('./models/Produto')
 const OrdemServico = require('./models/OrdemServico')
 const relations = require('./models/relations')
+const infoAssistencia = require('./models/InfoAss')
 
 // rotas
 const authRouter = require('./routes/authRouter');
@@ -28,6 +33,8 @@ const ordemRouter = require('./routes/ordemRouter')
 const servicoRouter = require('./routes/servicoRouter')
 const produtoRouter = require('./routes/produtoRouter')
 const vendaRouter = require('./routes/vendaRouter')
+const relatoriosRouter = require('./routes/relatoriosRouter')
+const infosRouter = require('./routes/infosRouter')
 
 // controllers
 const AuthController = require("./controllers/AuthController");
@@ -50,7 +57,7 @@ app.use(express.json());
 app.use(
   session({
     name: "session",
-    secret: "SECRET",
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     store: new FileStore({
@@ -58,11 +65,12 @@ app.use(
       path: require("path").join(__dirname, 'session'),
       ttl: 60*60*24,
       retries: 1,
-      checkPeriod: 60*60*24
+      clearExpired: true,
+      checkPeriod: 60*60*1000
     }),
     cookie: {
       secure: false,
-      expires: new Date(Date.now() + 60 * 60 * 24 * 1000),
+      maxAge: 60*60*24*1000,
       httpOnly: true,
     },
   })
@@ -86,6 +94,8 @@ app.use('/ordem',ordemRouter)
 app.use('/servico', servicoRouter)
 app.use('/produto', produtoRouter)
 app.use('/venda', vendaRouter)
+app.use('/relatorios', relatoriosRouter)
+app.use('/infos',infosRouter)
 app.get('/', DasboardController.showDashboard)
 
 // Relacionamentos
