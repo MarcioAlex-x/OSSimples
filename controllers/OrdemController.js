@@ -57,7 +57,11 @@ module.exports = class OrdemController {
       status: ordem.status,
     }));
 
-    res.render("ordem/ordens", { ordens, complemento });
+    const abertas = ordensData.filter( ordem => ordem.status === 'aberto' )
+    const concluidas = ordensData.filter( ordem => ordem.status === 'concluido')
+    const entregues = ordensData.filter( ordem => ordem.status === 'entregue')
+
+    res.render("ordem/ordens", { ordens, complemento, abertas, concluidas, entregues });
   }
 
   static async addOrdem(req, res) {
@@ -75,6 +79,8 @@ module.exports = class OrdemController {
         UserId,
         dataentrada,
         prazoentrega,
+        marca,
+        modelo,
         checklist,
         desconto,
         formapagamento,
@@ -91,6 +97,8 @@ module.exports = class OrdemController {
       if (!cliente)
         return res.status(404).json({ error: "Cliente não encontrado." });
   
+      const atendente = await User.findByPk(UserId)
+
       const servicosSelecionados = await Servico.findAll({
         where: { id: servicos },
       });
@@ -107,6 +115,8 @@ module.exports = class OrdemController {
         UserId: parseInt(UserId),
         dataentrada,
         prazoentrega,
+        marca,
+        modelo,
         checklist,
         precoTotal,
         desconto,
@@ -115,10 +125,38 @@ module.exports = class OrdemController {
       });
   
       await ordem.addServicos(servicosSelecionados);
+
+      const dataentradaForatada = new Date(ordem.dataentrada).toLocaleString('pt-BR',{
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      })
+      const prazoentregaFormatada = new Date(ordem.prazoentrega).toLocaleString('pt-BR',{
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      })
   
       if (cliente.telefone) {
-        const mensagem = `Olá ${cliente.nome}, sua ordem foi criada com sucesso!`;
-        const { desktopUrl, webUrl } = sendWhatsAppMessage(
+        const mensagem = `
+        Olá ${cliente.nome}, sua ordem foi criada com sucesso!
+        
+      Aqui estão as informações da sua OS de N° ${ordem.id}:
+        
+      O seu aparelho de marca ${ordem.marca}, modelo ${ordem.modelo} foi recebido em nossa assistência por ${atendente.nome} em nossa         assistência em ${dataentradaForatada}, foram registradas as seguintes informações no checklist: 
+        ${ordem.checklist}.
+
+      O valor total da sua ordem é de R$${ordem.precoTotal}.
+      A forma de pagamento é ${ordem.formapagamento}.
+      O prazo de entrega é para o dia ${prazoentregaFormatada}
+
+      Você receberá outras mensagens quando o serviço for concluído e finalizado.
+        `;
+        const { desktopUrl } = sendWhatsAppMessage(
           cliente.telefone,
           mensagem
         );
@@ -126,7 +164,7 @@ module.exports = class OrdemController {
         return res.send(`
           <script type='text/javascript'>
             var link = document.createElement('a');
-            link.href = '${url}';
+            link.href = '${desktopUrl}';
             link.click();
 
             setTimeout(function() {
@@ -145,26 +183,62 @@ module.exports = class OrdemController {
   }
   
   static async ChangeStatus(req, res) {
-    let message = false;
-    let contentMessage = "";
-    let classe = "";
     try {
       const { id, status } = req.body;
-
-      await Ordem.update({ status }, { where: { id } });
-
-      if (status === "") {
+  
+      if (!status) {
         req.flash("message", "Você precisa informar o status.");
         return res.redirect("/ordem/ordens");
       }
-
-      console.log("Deu certo");
-
-      return res.redirect("/ordem/ordens");
+  
+      // Buscar a ordem e os dados do cliente
+      const ordem = await Ordem.findByPk(id, {
+        include: [{ model: Cliente, attributes: ["nome", "telefone"] }],
+      });
+  
+      if (!ordem) {
+        req.flash("message", "Ordem não encontrada.");
+        return res.redirect("/ordem/ordens");
+      }
+  
+      // Atualizar o status da ordem
+      await Ordem.update({ status }, { where: { id } });
+  
+      // Verificar se o cliente tem um telefone cadastrado
+      if (ordem.Cliente && ordem.Cliente.telefone) {
+        let mensagem = `Olá ${ordem.Cliente.nome}, sua ordem de serviço (OS N° ${ordem.id}) teve uma atualização de status.\n\n`;
+  
+        if (status === "concluido") {
+          mensagem += `O serviço foi concluído com sucesso! Sua OS já está pronta para retirada.`;
+        } else if (status === "entregue") {
+          mensagem += `Seu aparelho já foi entregue. Agradecemos por confiar em nossa assistência!`;
+        } else {
+          mensagem += `O status da sua OS agora é: ${status}. Caso tenha dúvidas, entre em contato.`;
+        }
+  
+        mensagem += `\n\nAtenciosamente, Assistência Técnica.`;
+  
+        const { desktopUrl } = sendWhatsAppMessage(ordem.Cliente.telefone, mensagem);
+  
+        return res.send(`
+          <script type='text/javascript'>
+            var link = document.createElement('a');
+            link.href = '${desktopUrl}';
+            link.click();
+  
+            setTimeout(function() {
+              window.location.href = "/ordem/ordens";
+            }, 2000);
+          </script>
+        `);
+      } else {
+        return res.redirect("/ordem/ordens");
+      }
     } catch (err) {
-      console.log("Deu errado");
-
+      req.flash("message", "Ocorreu um erro ao atualizar o status.");
       return res.redirect("/ordem/ordens");
     }
   }
+  
+  
 };

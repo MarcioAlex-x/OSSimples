@@ -43,8 +43,14 @@ const DasboardController = require("./controllers/DashboardController");
 // iniciação do app
 const app = express();
 
+const hbs = exphbs.create({
+  helpers: {
+    eq: (a,b) => a === b
+  }
+})
+
 // configuração do handlebars
-app.engine("handlebars", exphbs.engine());
+app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 
 // middlewares

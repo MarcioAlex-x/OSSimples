@@ -4,16 +4,14 @@
     {{>menuPainel}}
     <div class="artigo">
 
-        <a href="/ordem/create"
-            class="botao-add-flutuante">Nova
+        <a href="/ordem/create" class="botao-add-flutuante">Nova
             ordem</a>
         <div class="botoes-status-ordens">
             <form method="get" action="/ordem/ordens">
                 <button type="submit" class="bt btn-sm bt-secondary mx-2">Todas</button>
             </form>
             <form method="get">
-                <button type="submit" name="byStatus" value="aberto"
-                    class="bt btn-sm bt-tertiary me-2">Abertas</button>
+                <button type="submit" name="byStatus" value="aberto" class="bt btn-sm bt-tertiary me-2">Abertas</button>
             </form>
             <form method="get">
                 <button type="submit" name="byStatus" value="concluido"
@@ -23,11 +21,9 @@
                 <button type="submit" name="byStatus" value="entregue" class="bt btn-sm bt-primary">Entregues</button>
             </form>
         </div>
+        {{#if ordens.length}}
         {{#each ordens}}
         <div class="row border m-2 rounded p-md-3 p-0">
-            {{#if semOrdens}}
-            <p class="text-center my-4">Nenhuma ordem de serviço por aqui!</p>
-            {{/if}}
 
             <h2 class="fs-5 text-center">Ordem nº{{this.id}}</h2>
             <p class="fs-5 text-center">Cliente: {{this.cliente}}</p>
@@ -41,25 +37,37 @@
                 <div class="col-12 col-md-6">
                     <p>Valor do serviço: <b>R${{this.precoTotal}}</b></p>
                     <p>Forma de pagamento: {{this.formapagamento}}</p>
-                    <p>Status desta ordem: <b class="status-ordem">{{this.status}}</b></p>
+                    <p>Status desta ordem: <b class="status-ordem">
+                        <br>
+                        <h4>{{this.status}}</h4></b></p>
 
                     <form action="/ordem/changeStatus" method="post" class="">
                         <input type="hidden" name="id" value="{{this.id}}">
-                        <label class="label">Mudar o status</label>
                         <div class="select-status-ordens">
-                            <select name="status" class="input" required>
-                                <option class="option" value="">Selecione o status</option>
-                                <option class="option" value="aberto">Aberto</option>
+                            {{#if (eq this.status "aberto")}}
+                            <select name="status" class="hiddInput" required>
                                 <option class="option" value="concluido">Concluído</option>
+                            </select>
+                            {{else if (eq this.status "concluido")}}
+                            <select name="status" class="hiddInput" required>
                                 <option class="option" value="entregue">Entregue</option>
                             </select>
-
-                            <button type="submit" class="btn">Mudar</button>
+                            {{else}}
+                            <p><strong>Finalizado.</strong></p>
+                            {{/if}}
+                            {{#if (eq this.status "entregue")}}
+                            <button type="submit" class="hiddInput">Mudar</button>
+                            {{else}}
+                            <button type="submit" class="bt bt-send">Mudar</button>
+                            {{/if}}
                         </div>
                     </form>
                 </div>
             </div>
         </div>
         {{/each}}
+        {{else}}
+        <p>Nenhuma ordem de serviço por aqui!</p>
+        {{/if}}
     </div>
 </div>

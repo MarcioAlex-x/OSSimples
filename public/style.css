@@ -115,21 +115,40 @@ header{
 }
 
 .login-register{
-    width: 75%;
+    width: 50%;
+    border: none;
+    margin-top: 40px;
+}
+
+.login-register .input{
+    caret-color: #039174;
+    color: #00b894;
+
+}
+
+.logo-image{
+    display: block;
+    margin: 40px auto 0;
 }
 
 .label{
     font-family: var(--textos);
+    color: #0966ad;
 }
 
 .input{
     background-color: transparent;
     border: none;
-    border-bottom: 1px solid #dfe6e9;
+    border-bottom: 1px solid #0966ad;
+    color: #0966ad;
     outline: transparent;
-    /* caret-color: #dfe6e9; */
+    caret-color: #039174;
     margin-bottom: 24px;
     /* color: #dfe6e9; */
+}
+
+.hiddInput{
+    display: none;
 }
 
 /* .option{

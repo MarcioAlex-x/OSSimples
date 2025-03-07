@@ -15,6 +15,16 @@ const Ordem = db.define('Ordem',{
         type:DataTypes.DATE,
         allowNull:false
     },
+    marca:{
+        type:DataTypes.STRING,
+        allowNull:false,
+        defaultValue: 'Desconhecida'
+    },
+    modelo:{
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: 'Desconhecido'
+    },
     checklist:{
         type: DataTypes.TEXT,
         allowNull:false
