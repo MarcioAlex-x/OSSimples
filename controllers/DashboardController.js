@@ -49,10 +49,7 @@ module.exports = class DasboardController{
             where : whereCondition
         })
 
-        console.log(ordens.createdAt)
-
-        
-        
+        console.log(ordens.createdAt)       
 
         // Banner quantas odens no total
         let temOrdem = false

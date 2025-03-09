@@ -178,6 +178,7 @@ module.exports = class OrdemController {
       }
     } catch (err) {
       console.error(err);
+      req.flash('message','Ocorreu um erro inestperado, tente outra vez em instantes.')
       return res.redirect("/ordem/create");
     }
   }

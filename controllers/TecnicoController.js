@@ -34,8 +34,9 @@ module.exports = class TecnicoController {
 
       res.render("tecnico/tecnicos", { tecnicos, administrador });
     } catch (err) {
-      req.flash('message','')
+      req.flash('message','Ocorreu um erro, tente outra vez mais tarde.')
       console.log("O erro é: ", err);
+      return
     }
   }
 };

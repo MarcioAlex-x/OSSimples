@@ -12,27 +12,17 @@ module.exports = class AuthController {
     const nome = req.body.nome.trim().toUpperCase();
     const password = req.body.password;
 
-    let message = false;
-    let contentMessage = "";
-    let classe = "";
-
     try {
       const user = await User.findOne({ where: { nome } });
       if (!user) {
-        return res.render("auth/login", {
-          message: true,
-          contentMessage: "Usuário não encontrado.",
-          classe: "erro",
-        });
+        req.flash('message','Usuário não encontrado.')
+        return res.render("auth/login");
       }
       const decodesPassword = await bcrypt.compare(password, user.password);
 
       if (!decodesPassword) {
-        return res.render("auth/login", {
-          message: true,
-          contentMessage: "Senha inválida",
-          classe: "erro",
-        });
+      req.flash('message',"Senha inválida")
+        return res.render("auth/login");
       }
 
       req.session.user = {
@@ -44,17 +34,13 @@ module.exports = class AuthController {
       };
 
       return req.session.save(() => {
+        req.flash('message','Logado com sucesso')
         res.redirect("/dashboard/painel");
       });
     } catch (err) {
-      req.flash("message", "");
       console.log(err);
-      return res.status(500).render("auth/login", {
-        message: true,
-        contentMessage:
-          "Ocorreu um erro inesperado, favor tentar denovo mais tarde.",
-        classe: "erro",
-      });
+      req.flash('message','Ocorreu um erro inesperado.')
+      return res.status(500).render("auth/login");
     }
   }
 
@@ -65,20 +51,14 @@ module.exports = class AuthController {
 
   // novo usuário
   static async registerPost(req, res) {
-    let message = false;
-    let contentMessage = "";
-    let classe = "";
 
     const { nome, email, password, telefone, endereco, especialidade, nivel } =
       req.body;
     const newUser = async () => {
       // Validação decampos
       if (!nome || !email || !password || !telefone || !endereco) {
-        return res.status(400).render("auth/register", {
-          message: true,
-          contentMessage: "Todos os dados precisam ser informados.",
-          classe: "erro",
-        });
+        req.flash('message','Todos os dados precisam ser informados.')
+        return res.status(400).render("auth/register");
       }
 
       // criptografar senha
@@ -88,19 +68,13 @@ module.exports = class AuthController {
       const existingName = await User.findOne({ where: { nome } });
 
       if (existingEmail) {
-        return res.status(400).render("auth/register", {
-          message: true,
-          contentMessage: "O email informado já está sendo usado.",
-          classe: "erro",
-        });
+        req.flash('message','O email informado já está sendo usado.')
+        return res.status(400).render("auth/register");
       }
 
       if (existingName) {
-        return res.status(400).render("auth/register", {
-          message: true,
-          contentMessage: "O nome de usuário informado já está sendo usado.",
-          classe: "erro",
-        });
+        req.flash('message','O nome de usuário informado já está sendo usado.')
+        return res.status(400).render("auth/register");
       }
 
       const user = {
@@ -118,12 +92,8 @@ module.exports = class AuthController {
           res.redirect("/dashboard/painel");
         });
       } catch (err) {
-        return res.render("auth/register", {
-          message: true,
-          contentMessage:
-            "Aconteceu um erro inesperado, por favor tentar novamente.",
-          classe: "erro",
-        });
+        req.flash('message','Aconteceu um erro inesperado, por favor tentar novamente.')
+        return res.render("auth/register");
       }
     };
     newUser();
@@ -137,19 +107,13 @@ module.exports = class AuthController {
 
   // página para editar um usuário
   static async userEdit(req, res) {
-    let message = false;
-    let contentMessage = "";
-    let classe = "";
 
     const id = req.params.id;
     const user = await User.findOne({ where: { id } });
     // console.log("nome", user.nome);
     if (!user) {
-      return res.render("auth/edit", {
-        message: true,
-        contentMessage: "Usuário não encontrado.",
-        classe: "erro",
-      });
+      req.flash('message','Usuário não encontrado.')
+      return res.render("auth/edit");
     }
 
     const userData = user.get({ plain: true });
@@ -158,9 +122,6 @@ module.exports = class AuthController {
 
   // editar um usuário
   static async userEditPost(req, res) {
-    let message = false;
-    let contentMessage = "";
-    let classe = "";
 
     const id = req.body.id;
     const { nome, email, password, telefone, endereco, especialidade, nivel } =
@@ -169,11 +130,8 @@ module.exports = class AuthController {
     const user = await User.findOne({ where: { id } });
 
     if (!user) {
-      return res.render("auth/edit", {
-        message: true,
-        contentMessage: "Usuário não encontrado.",
-        classe: "erro",
-      });
+      req.flash('message','Usuário não encontrado.')
+      return res.render("auth/edit");
     }
 
     try {
@@ -191,11 +149,8 @@ module.exports = class AuthController {
         res.redirect("/");
       });
     } catch (err) {
-      return res.status(500).render("auth/edit", {
-        message: true,
-        contentMessage:
-          "Ocorreu um erro inesperado, por favor tente outra vez.",
-      });
+      req.flash('message','Ocorreu um erro inesperado, por favor tente outra vez.')
+      return res.status(500).render("auth/edit");
     }
   }
 
@@ -206,6 +161,7 @@ module.exports = class AuthController {
       await User.destroy({
         where: { id },
       });
+      req.flash('message','Usuário deletado.')
       return res.redirect("/tecnico/tecnicos");
     } catch (err) {
       return;

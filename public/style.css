@@ -310,17 +310,12 @@ header{
 
 .message{
     text-align: center;
-    border: 1px solid #dfe6e9;
-    border-radius: 8px;
     margin: auto;
-    background-color: #dfe6e9;
+    background-color: #f7f2f2;
     color: #2d3436;
-    position: absolute;
-    bottom:50% ;
-    left: 25%;
     font-size: 18px;
-    padding: 16px;
-    width: 50%;
+    padding: 4px 16px ;
+    width: 100%;
     /* margin: 80px auto; */
 }
 
