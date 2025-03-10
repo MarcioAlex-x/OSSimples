@@ -9,8 +9,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     label: titulo,
                     data: dados,
                     backgroundColor: ['#273c75','#e84118','#4cd137','#fbc531','#00a8ff','#9c88ff','#55efc4','#81ecec','#74b9ff','#a29bfe','#00b894','#00cec9','#0984e3','#6c5ce7','#ffeaa7','#fab1a0','#ff7675','#fd79a8','#fdcb6e','#e17055','#d63031','#e84393'],
-                    borderColor: ['#dfe6e9'],
-                    borderWidth: 1
+                    // borderColor: ['#6c5ce7'],
+                    // borderWidth: 1
                 }]
             },
             options: {

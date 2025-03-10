@@ -62,9 +62,16 @@ module.exports = class RelatoriosController {
       }
 
       ordens.forEach((ordem) => {
-        const dataOrdem = ordem.createdAt.toISOString().split("T")[0];
-        if (contagem[dataOrdem] !== undefined) {
-          contagem[dataOrdem]++;
+        let dataOrdem
+
+        if(unidadeTempo === 'meses'){
+          dataOrdem = ordem.createdAt.toISOString().substring(0,7)
+        }else{
+          dataOrdem = ordem.createdAt.toISOString().split('T')[0]
+        }
+
+        if(contagem[dataOrdem] !== undefined){
+          contagem[dataOrdem]++
         }
       });
 
