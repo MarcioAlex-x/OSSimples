@@ -25,14 +25,15 @@
                 </select>
             </div>
 
-            <div class="input-container">
-                <label class="label">Data de entrada</label>
-                <input type="date" name="dataentrada" class="input">
-            </div>
-
-            <div class="input-container">
-                <label class="label">Prazo para entrega</label>
-                <input type="date" name="prazoentrega" class="input">
+            <div class="entrada-prazo">
+                <div class="input-container">
+                    <label class="label">Data de entrada</label>
+                    <input type="date" name="dataentrada" class="input">
+                </div>
+                <div class="input-container">
+                    <label class="label">Prazo para entrega</label>
+                    <input type="date" name="prazoentrega" class="input">
+                </div>
             </div>
 
             <div class="input-container">
@@ -47,6 +48,7 @@
 
             <div class="input-container">
                 <label class="label" for="servicos">Serviços:</label>
+                <span class="text-success">Use o CTRL para escolher mais de um serviço.</span>
                 <select class="input" name="servicos" multiple required>
                     {{#each servicos}}
                     <option class="" value="{{this.id}}" data-preco="{{this.preco}}">
@@ -54,7 +56,7 @@
                     </option>
                     {{/each}}
                 </select>
-                <span class="text-success">Use o CTRL para escolher mais de um serviço.</span>
+                
             </div>
 
             <div class="input-container">

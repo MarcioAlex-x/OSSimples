@@ -15,13 +15,13 @@ module.exports = class AuthController {
     try {
       const user = await User.findOne({ where: { nome } });
       if (!user) {
-        req.flash('message','Usuário não encontrado.')
+        req.flash("message", "Usuário não encontrado.");
         return res.render("auth/login");
       }
       const decodesPassword = await bcrypt.compare(password, user.password);
 
       if (!decodesPassword) {
-      req.flash('message',"Senha inválida")
+        req.flash("message", "Senha inválida");
         return res.render("auth/login");
       }
 
@@ -34,12 +34,12 @@ module.exports = class AuthController {
       };
 
       return req.session.save(() => {
-        req.flash('message','Logado com sucesso')
+        req.flash("message", "Logado com sucesso");
         res.redirect("/dashboard/painel");
       });
     } catch (err) {
       console.log(err);
-      req.flash('message','Ocorreu um erro inesperado.')
+      req.flash("message", "Ocorreu um erro inesperado.");
       return res.status(500).render("auth/login");
     }
   }
@@ -51,13 +51,12 @@ module.exports = class AuthController {
 
   // novo usuário
   static async registerPost(req, res) {
-
     const { nome, email, password, telefone, endereco, especialidade, nivel } =
       req.body;
     const newUser = async () => {
       // Validação decampos
       if (!nome || !email || !password || !telefone || !endereco) {
-        req.flash('message','Todos os dados precisam ser informados.')
+        req.flash("message", "Todos os dados precisam ser informados.");
         return res.status(400).render("auth/register");
       }
 
@@ -68,12 +67,15 @@ module.exports = class AuthController {
       const existingName = await User.findOne({ where: { nome } });
 
       if (existingEmail) {
-        req.flash('message','O email informado já está sendo usado.')
+        req.flash("message", "O email informado já está sendo usado.");
         return res.status(400).render("auth/register");
       }
 
       if (existingName) {
-        req.flash('message','O nome de usuário informado já está sendo usado.')
+        req.flash(
+          "message",
+          "O nome de usuário informado já está sendo usado."
+        );
         return res.status(400).render("auth/register");
       }
 
@@ -92,7 +94,10 @@ module.exports = class AuthController {
           res.redirect("/dashboard/painel");
         });
       } catch (err) {
-        req.flash('message','Aconteceu um erro inesperado, por favor tentar novamente.')
+        req.flash(
+          "message",
+          "Aconteceu um erro inesperado, por favor tentar novamente."
+        );
         return res.render("auth/register");
       }
     };
@@ -107,12 +112,11 @@ module.exports = class AuthController {
 
   // página para editar um usuário
   static async userEdit(req, res) {
-
     const id = req.params.id;
     const user = await User.findOne({ where: { id } });
     // console.log("nome", user.nome);
     if (!user) {
-      req.flash('message','Usuário não encontrado.')
+      req.flash("message", "Usuário não encontrado.");
       return res.render("auth/edit");
     }
 
@@ -122,7 +126,6 @@ module.exports = class AuthController {
 
   // editar um usuário
   static async userEditPost(req, res) {
-
     const id = req.body.id;
     const { nome, email, password, telefone, endereco, especialidade, nivel } =
       req.body;
@@ -130,7 +133,7 @@ module.exports = class AuthController {
     const user = await User.findOne({ where: { id } });
 
     if (!user) {
-      req.flash('message','Usuário não encontrado.')
+      req.flash("message", "Usuário não encontrado.");
       return res.render("auth/edit");
     }
 
@@ -149,7 +152,10 @@ module.exports = class AuthController {
         res.redirect("/");
       });
     } catch (err) {
-      req.flash('message','Ocorreu um erro inesperado, por favor tente outra vez.')
+      req.flash(
+        "message",
+        "Ocorreu um erro inesperado, por favor tente outra vez."
+      );
       return res.status(500).render("auth/edit");
     }
   }
@@ -161,10 +167,19 @@ module.exports = class AuthController {
       await User.destroy({
         where: { id },
       });
-      req.flash('message','Usuário deletado.')
+      req.flash("message", "Usuário deletado.");
       return res.redirect("/tecnico/tecnicos");
     } catch (err) {
       return;
+    }
+  }
+  //Recuperar senha - Pausado até assinar API de envio de e-mail
+  static async RecuperarSenha(req, res) {
+    try {
+      res.render('/auth/recuperar-senha')
+    } catch (err) {
+      req.flash('message','Ocorreu um erro, tente outra vez.')
+      res.render('auth/login')
     }
   }
 };

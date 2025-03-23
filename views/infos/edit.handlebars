@@ -3,44 +3,45 @@
 <div class="secao">
     {{> menuPainel}}
     <div class="artigo">
-        <form action="" class="form-container" method="post">
+        <form action="/infos/update" class="form-container" method="post">
+            <input type="hidden" name="id" value="{{infos.id}}">
             <div class="input-container">
                 <label class="label">Nome da Assistencia</label>
-                <input class="input" type="text" name="assistencia">
+                <input class="input" type="text" name="assistencia" value="{{infos.assistencia}}">
             </div>
             <div class="input-container">
                 <label class="label">Endereço completo</label>
-                <input class="input" type="text" name="endereco" placeholder="nome da rua, número, bairro, cidade-estado">
+                <input class="input" type="text" name="endereco" placeholder="nome da rua, número" value="{{infos.endereco}}">
             </div>
             <div class="input-container">
                 <label class="label">Cidade</label>
-                <input class="input" type="text" name="cidade">
+                <input class="input" type="text" name="cidade" value="{{infos.cidade}}">
             </div>
             <div class="input-container">
                 <label class="label">Estado</label>
-                <input class="input" type="text" name="estado">
+                <input class="input" type="text" name="estado" value="{{infos.estado}}">
             </div>
             <div class="input-container">
                 <label class="label">Complemento</label>
-                <input class="input" type="text" name="complemento">
+                <input class="input" type="text" name="complemento" value="{{infos.complemento}}">
             </div>
             <div class="input-container">
                 <label class="label">E-mail</label>
-                <input class="input" type="text" name="email">
+                <input class="input" type="text" name="email" value="{{infos.email}}">
             </div>
             <div class="input-container">
                 <label class="label">WhatsApp</label>
-                <input class="input" type="text" name="whatsapp">
+                <input class="input" type="text" name="whatsapp" placeholder="Ex: +5515987654321" value="{{infos.whatsapp}}">
             </div>
             <div class="input-container">
                 <label class="label">Técnico responsável</label>
-                <input class="input" type="text" name="responsavel">
+                <input class="input" type="text" name="responsavel" value="{{infos.responsavel}}">
             </div>
-           <div class="input-container">
-                <label class="label">E-mail</label>
+            {{!-- <div class="input-container">
+                <label class="label">E-mail para envio das OSs</label>
                 <input class="input" type="text" name="emailEnvioOss">
             </div>
-             {{!-- <div class="input-container">
+            <div class="input-container">
                 <label class="label">Senha do e-mail de envio das OSs</label>
                 <input class="input" type="password" name="senhaEmailEnvioOss">
             </div> --}}

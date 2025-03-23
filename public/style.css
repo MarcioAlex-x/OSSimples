@@ -67,6 +67,15 @@
 .bt-send:hover{
     background-color: #039174;
 }
+.bt-sair{
+    display: block;
+    width: 100%;
+}
+/* Estilo da ancoragem */
+.ancoragem{
+    text-decoration: none;
+    color: #fff ;
+}
 /* logo */
 .logo{
     font-size: 24px;
@@ -102,6 +111,16 @@ header{
 }
 
 /* Formulários */
+.entrada-prazo{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+.entrada-prazo .input-container{
+    border: 1px solid #0966ad71;
+    padding: 24px;
+    border-radius: 4px;
+}
 .form-container{
     border: 1px solid #dfe6e9;
     border-radius: 8px;
@@ -301,6 +320,7 @@ header{
     border-radius: 4px;
     transition: .5s;
     font-weight: bold;
+    box-shadow: 4px 4px 8px #636e723f;
 }
 
 .botao-add-flutuante:hover{
@@ -349,6 +369,9 @@ header{
     /* align-items: center; */
     justify-content: center;
     /* font-weight: bold; */
+    background-image: url('images/bg-cards-painel.png');
+    background-repeat: no-repeat;
+    background-size: cover;
     
 }
 /* Cards do papinel */
@@ -432,8 +455,17 @@ background: linear-gradient(137deg, rgba(247,242,242,1) 0%, rgba(255,255,255,1) 
 }
 
 @media screen and (max-width : 450px){
+    .titulo{
+        padding-bottom: 30px;
+    }
+    .entrada-prazo{
+        grid-template-columns: 1fr;
+    }
     .secao{
         grid-template-columns: 80px auto;
+    }
+    .menu-painel img{
+        width: 50px;
     }
     .link-menu-painel-span{
         display: none;
@@ -449,7 +481,9 @@ background: linear-gradient(137deg, rgba(247,242,242,1) 0%, rgba(255,255,255,1) 
         margin-top: 0;
     }
     .botao-add-flutuante{
-        top: 20px;
+        top: 60px;
+        font-size: 13px;
+        padding: 2px 8px;
     }
     .form-container{
         padding: 8px;
@@ -469,6 +503,9 @@ background: linear-gradient(137deg, rgba(247,242,242,1) 0%, rgba(255,255,255,1) 
     }
     .paragrafos-infos{
         font-size: 18px;
+    }
+    .bt-sair{
+        display: inline;
     }
 }
 @media screen and (max-width: 415px){

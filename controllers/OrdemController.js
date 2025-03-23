@@ -2,6 +2,7 @@ const Ordem = require("../models/Ordem");
 const Cliente = require("../models/Cliente");
 const User = require("../models/User");
 const Servico = require("../models/Servico");
+const Info = require('../models/InfoAss')
 const { sendWhatsAppMessage } = require("../services/whatsappService");
 const { Op } = require("sequelize");
 
@@ -142,17 +143,35 @@ module.exports = class OrdemController {
       })
   
       if (cliente.telefone) {
+
+        const assistencia = await Info.findAll()
+        const dadosAssistencia = assistencia.map(dados => ({
+          nome: dados.assistencia,
+          responsavel:dados.responsavel,
+          endereco:dados.endereco,
+          cidade:dados.cidade,
+          estado:dados.estado,
+          whatsapp:dados.whatsapp
+        }))
+
+        const ass = dadosAssistencia[0]
+
         const mensagem = `
-        Olá ${cliente.nome}, sua ordem foi criada com sucesso!
+      *${ass.nome}*
+        Localizada em ${ass.endereco}, ${ass.cidade} - ${ass.estado}
+        Resposável técinco: ${ass.responsavel}
+        whatsapp: ${ass.whatsapp}
+
+      Olá *${cliente.nome}*, sua ordem foi criada com sucesso!
         
-      Aqui estão as informações da sua OS de N° ${ordem.id}:
+        Aqui estão as informações da sua OS de N° ${ordem.id}:
         
-      O seu aparelho de marca ${ordem.marca}, modelo ${ordem.modelo} foi recebido em nossa assistência por ${atendente.nome} em nossa         assistência em ${dataentradaForatada}, foram registradas as seguintes informações no checklist: 
+      O seu aparelho de marca ${ordem.marca}, modelo ${ordem.modelo} foi recebido em nossa assistência por ${atendente.nome} em ${dataentradaForatada}. Foram registradas as seguintes informações no checklist: 
         ${ordem.checklist}.
 
-      O valor total da sua ordem é de R$${ordem.precoTotal}.
-      A forma de pagamento é ${ordem.formapagamento}.
-      O prazo de entrega é para o dia ${prazoentregaFormatada}
+      O valor total da sua ordem é de *R$${ordem.precoTotal}*.
+      A forma de pagamento é *${ordem.formapagamento}*.
+      O prazo de entrega é para o dia *${prazoentregaFormatada}*.
 
       Você receberá outras mensagens quando o serviço for concluído e finalizado.
         `;
@@ -207,6 +226,8 @@ module.exports = class OrdemController {
   
       // Verificar se o cliente tem um telefone cadastrado
       if (ordem.Cliente && ordem.Cliente.telefone) {
+        const assistencia = Info.findAll()
+        const nomeAssistencia = (await assistencia).map(ass => ass.assistencia)
         let mensagem = `Olá ${ordem.Cliente.nome}, sua ordem de serviço (OS N° ${ordem.id}) teve uma atualização de status.\n\n`;
   
         if (status === "concluido") {
@@ -217,7 +238,7 @@ module.exports = class OrdemController {
           mensagem += `O status da sua OS agora é: ${status}. Caso tenha dúvidas, entre em contato.`;
         }
   
-        mensagem += `\n\nAtenciosamente, Assistência Técnica.`;
+        mensagem += `\n\nAtenciosamente, *${nomeAssistencia}*.`;
   
         const { desktopUrl } = sendWhatsAppMessage(ordem.Cliente.telefone, mensagem);
   
